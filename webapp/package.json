@@ -1,0 +1,37 @@
+{
+  "name": "bimsum-webapp",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
+    "build-pages": "vite build --base=/bimsum/ --emptyOutDir"
+  },
+  "dependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react": "^1.0.0",
+    "jss-plugin-default-unit": "^10.8.2",
+    "jss-plugin-global": "^10.8.2",
+    "jss-plugin-nested": "^10.8.2",
+    "jss-plugin-props-sort": "^10.8.2",
+    "jss-plugin-vendor-prefixer": "^10.8.2",
+    "react-jss": "^10.8.2",
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4",
+    "vite-tsconfig-paths": "^3.4.1",
+    "eslint": "8.2.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-cypress": "2.12.1",
+    "eslint-plugin-jest": "25.2.4",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.27.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-typescript": "0.14.0",
+    "eslint-webpack-plugin": "3.1.1"
+  }
+}

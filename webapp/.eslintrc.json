@@ -1,0 +1,32 @@
+{
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true,
+      "jest/globals": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "prettier",
+      "plugin:prettier/recommended",
+      "plugin:cypress/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true
+      }
+    },
+    "plugins": ["typescript", "@typescript-eslint", "react-hooks", "jest", "translate"],
+    "root": true,
+    "rules": {
+      "no-unused-vars": "off",
+      "translate/translate-component": 2,
+      "translate/translate-function": 2,
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
+  }
