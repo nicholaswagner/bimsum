@@ -16,7 +16,7 @@
     "useDefineForClassFields": true,
     "experimentalDecorators": true,
     "removeComments": true,
-    "sourceMap": true,
+    "sourceMap": true
   },
   "include": ["./src"]
 }
