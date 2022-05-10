@@ -6,14 +6,15 @@ from dataset import Dataset
 from model import Model
 
 
-def predict(dataset, model, text, next_words=100):
+def predict(n, dataset, model):
     model.eval()
+    context_size = 10
+    state_h, state_c = model.init_state(context_size)
+    seed_words_idxs = np.random.randint(0, len(dataset.uniq_words), size=(context_size,))
+    words = [dataset.index_to_word[i] for i in seed_words_idxs]
 
-    words = text.split(' ')
-    state_h, state_c = model.init_state(len(words))
-
-    for i in range(0, next_words):
-        x = torch.tensor([[dataset.word_to_index[w] for w in words[i:]]])
+    while len(words) < n + context_size:
+        x = torch.tensor([[dataset.word_to_index[w] for w in words[-context_size:]]])
         y_pred, (state_h, state_c) = model(x, (state_h, state_c))
 
         last_word_logits = y_pred[0][-1]
@@ -21,7 +22,7 @@ def predict(dataset, model, text, next_words=100):
         word_index = np.random.choice(len(last_word_logits), p=p)
         words.append(dataset.index_to_word[word_index])
 
-    return words
+    return words[context_size:]
 
 
 if __name__ == '__main__':
@@ -34,4 +35,5 @@ if __name__ == '__main__':
     dataset = Dataset(args)
     model = Model(dataset)
     model.load_state_dict(torch.load(args.model))
-    print(predict(dataset, model, text='Knock knock. Whos there?'))
+    generated_text = predict(args.n, dataset, model)
+    print(' '.join(generated_text))
