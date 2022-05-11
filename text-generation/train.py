@@ -1,8 +1,10 @@
 import argparse
 import torch
 from datetime import datetime
+from pathlib import Path
 from torch import nn, optim
 from torch.utils.data import DataLoader
+
 from model import Model
 from dataset import Dataset
 
@@ -34,7 +36,7 @@ def train(dataset, model, args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('data')
+    parser.add_argument('data', type=Path)
     parser.add_argument('--max-epochs', type=int, default=10)
     parser.add_argument('--batch-size', type=int, default=256)
     parser.add_argument('--sequence-length', type=int, default=4)

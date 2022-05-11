@@ -1,6 +1,7 @@
 import argparse
 import numpy as np
 import torch
+from pathlib import Path
 
 from dataset import Dataset
 from model import Model
@@ -27,7 +28,7 @@ def predict(n, dataset, model):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('data')
+    parser.add_argument('data', type=Path)
     parser.add_argument('model', help='Trained model checkpoint path.')
     parser.add_argument('--n', type=int, default=10, help='Number of words to generate.')
     args = parser.parse_args()

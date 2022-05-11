@@ -18,9 +18,10 @@ class Dataset(torch.utils.data.Dataset):
         self.words_indexes = [self.word_to_index[w] for w in self.words]
 
     def load_words(self):
-        train_df = pd.read_csv(self.args.data)
-        text = train_df['Joke'].str.cat(sep=' ')
-        return text.split(' ')
+        lines = self.args.data.read_text().split('\n')
+        text = ' '.join(lines)
+        words = text.split(' ')
+        return words
 
     def get_uniq_words(self):
         word_counts = Counter(self.words)
