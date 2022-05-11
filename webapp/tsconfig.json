@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "module": "esnext",
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": false,
@@ -17,7 +18,7 @@
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es2019",
+    "target": "esnext",
     "useDefineForClassFields": true,
   },
   "include": ["./src"]
