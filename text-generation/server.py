@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 import torch
-from flask import Flask, json
+from flask import Flask, json, Response
 from pathlib import Path
 
 from dataset import Dataset
@@ -13,18 +13,22 @@ model = None
 api = Flask(__name__)
 
 
+def package_data(data):
+    return Response(json.dumps({"data": data}), mimetype='application/json')
+
+
 @api.route('/word', methods=['GET'])
 def get_word():
     generated_text = gen_paragraph(1, dataset, model)
     data = generated_text[0].split(' ')[0]
-    return json.dumps({"data": data})
+    return package_data(data)
 
 
 @api.route('/sentence', methods=['GET'])
 def get_sentence():
     generated_text = gen_paragraph(1, dataset, model)
     data = generated_text[0]
-    return json.dumps({"data": data})
+    return package_data(data)
 
 
 @api.route('/paragraph', methods=['GET'])
@@ -32,7 +36,7 @@ def get_paragraph():
     num_sentences = np.random.randint(5, 10)
     generated_text = gen_paragraph(num_sentences, dataset, model)
     data = ' '.join(generated_text)
-    return json.dumps({"data": data})
+    return package_data(data)
 
 
 @api.route('/story', methods=['GET'])
@@ -44,7 +48,7 @@ def get_story():
         generated_text = gen_paragraph(num_sentences, dataset, model)
         story.extend(generated_text + ['\n\n'])
     data = ' '.join(story)
-    return json.dumps({"data": data})
+    return package_data(data)
 
 
 if __name__ == '__main__':
