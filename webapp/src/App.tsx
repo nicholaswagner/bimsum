@@ -40,7 +40,8 @@ function App() {
       <h1>Click a button below to generate some BIM text!</h1>
       <textarea readOnly value={demo} rows={20} cols={72} />
       <div className={c.row}>
-        <Button variant='outlined' onClick={() => setDemo(bimsum('word'))}>word</Button>
+        <Button variant='outlined' onClick={() => setDemo(bimsum('term'))}>construction term</Button>
+        {/* <Button variant='outlined' onClick={() => setDemo(bimsum('word'))}>word</Button> */}
         <Button variant="outlined" onClick={() => setDemo(bimsum('sentence'))}>sentence</Button>
         <Button variant="outlined" onClick={() => setDemo(bimsum('paragraph'))}>paragraph</Button>
         <Button variant="outlined" onClick={() => setDemo(bimsum('story'))}>story</Button>
