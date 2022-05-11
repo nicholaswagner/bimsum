@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { ThemeProvider } from '@mui/material/styles';
 import { osTheme } from './theme';
 import { bimsum } from './lib/bimsum';
+import { useState } from 'react';
 
 const SPACING_UNIT = 10;
 
@@ -31,24 +32,19 @@ const useStyles = createUseStyles({
 
 
 function App() {
+  const [demo, setDemo] = useState('');
   const c = useStyles();
-  
-  const buildWord=() => {
-    console.log('buildWord');
-  }
 
   return <div className={c.app}>
     <ThemeProvider theme={osTheme}>
-      
-    <p>Lets generate some text!</p>
-    <textarea rows={20} cols={72} />
-    <div className={c.row}>
-      <Button variant='outlined' onClick={() => bimsum('word')}>word</Button>
-      <Button variant="outlined" onClick={() => bimsum('sentence')}>sentence</Button>
-      <Button variant="outlined" onClick={() => bimsum('paragraph')}>paragraph</Button>
-      <Button variant="outlined" onClick={() => bimsum('story')}>story</Button>
-    </div>
-
+      <h1>Click a button below to generate some BIM text!</h1>
+      <textarea readOnly value={demo} rows={20} cols={72} />
+      <div className={c.row}>
+        <Button variant='outlined' onClick={() => setDemo(bimsum('word'))}>word</Button>
+        <Button variant="outlined" onClick={() => setDemo(bimsum('sentence'))}>sentence</Button>
+        <Button variant="outlined" onClick={() => setDemo(bimsum('paragraph'))}>paragraph</Button>
+        <Button variant="outlined" onClick={() => setDemo(bimsum('story'))}>story</Button>
+      </div>
     </ThemeProvider>
   </div>;
 }
