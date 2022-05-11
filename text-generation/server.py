@@ -2,6 +2,8 @@ import argparse
 import numpy as np
 import torch
 from flask import Flask, json, Response
+from flask_cors import CORS, cross_origin
+
 from pathlib import Path
 
 from dataset import Dataset
@@ -11,7 +13,7 @@ from demo import gen_paragraph
 dataset = None
 model = None
 api = Flask(__name__)
-
+CORS(api)
 
 def package_data(data):
     return Response(json.dumps({"data": data}), mimetype='application/json')
