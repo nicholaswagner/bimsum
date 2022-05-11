@@ -7,7 +7,7 @@ from dataset import Dataset
 from model import Model
 
 
-def predict(n, dataset, model):
+def predict(n, dataset, model) -> str:
     model.eval()
     context_size = 10
     state_h, state_c = model.init_state(context_size)
@@ -23,7 +23,17 @@ def predict(n, dataset, model):
         word_index = np.random.choice(len(last_word_logits), p=p)
         words.append(dataset.index_to_word[word_index])
 
-    return words[context_size:]
+    return ' '.join(words[context_size:])
+
+
+def gen_paragraph(num_sentences: int, dataset, model):
+    paragraph = []
+    while len(paragraph) < num_sentences:
+        l = np.random.randint(5, 15)
+        sentence_raw = predict(l, dataset, model)
+        sentence = sentence_raw.capitalize() + '.'
+        paragraph.append(sentence)
+    return paragraph
 
 
 if __name__ == '__main__':
@@ -36,5 +46,5 @@ if __name__ == '__main__':
     dataset = Dataset(args)
     model = Model(dataset)
     model.load_state_dict(torch.load(args.model))
-    generated_text = predict(args.n, dataset, model)
+    generated_text = gen_paragraph(args.n, dataset, model)
     print(' '.join(generated_text))

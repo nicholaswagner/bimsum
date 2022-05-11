@@ -39,7 +39,7 @@ if __name__ == '__main__':
     parser.add_argument('data', type=Path)
     parser.add_argument('--max-epochs', type=int, default=10)
     parser.add_argument('--batch-size', type=int, default=256)
-    parser.add_argument('--sequence-length', type=int, default=4)
+    parser.add_argument('--sequence-length', type=int, default=5)
     args = parser.parse_args()
 
     dataset = Dataset(args)
