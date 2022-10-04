@@ -1,5 +1,5 @@
 import {data} from './bimsum.json'
-type bimtype = 'term' | 'word' | 'sentence' | 'paragraph' | 'story';
+type bimtype = 'term' |  'sentence' | 'paragraph' | 'story';//'word' |
 
 const terms = [
 "A/C",
@@ -293,37 +293,29 @@ const terms = [
 "preliminary lien notice",
 "pre-qualification of prospective bidders"];
 
-function getSentence() { 
-    return data[Math.floor(Math.random() * data.length)];
-}
+function api<T>(url: string): Promise<T> {
+    return fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        return response.json() as Promise<{ data: T }>
+      })
+      .then(data => {
+          return data.data
+      })
+  }
 
-function getParagraph() {
-    let result = [];
-    const length = Math.floor(Math.random()*3+4);
-    for (let i = 0; i< length; i++) {
-        result.push(getSentence());
+ function getWords(type:bimtype) {
+   // special case: hacking in this list of construction terms
+    if (type === 'term') {
+        return terms[Math.floor(Math.random() * terms.length)];
     }
-    return result;
-}
-function getStory() {
-    let result = [];
-    const length = Math.floor(Math.random()*3+4);
-    for (let i = 0; i< length; i++) {
-        result.push(getParagraph());
-        result.push('\n\n');
-    }
-    return result;
+    // else hit the python api and return our result
+    return api<string>(`http://127.0.0.1:5000/${type}`)
 }
 
-export function bimsum(type:bimtype) {
-    
-    const random = getSentence().split(' ');
 
-    return {
-        ['term']: terms[Math.floor(Math.random() * terms.length)],
-        ['word']: random[Math.floor(Math.random() * random.length)],
-        ['sentence']: getSentence(),
-        ['paragraph']: getParagraph(),
-        ['story']: getStory()
-    }[type].toString();
+export async function bimsum(type:bimtype):Promise<string> {
+   return await getWords(type)
 }
